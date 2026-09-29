@@ -11,7 +11,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.soundin.ui.navigation.soundInNavGraph
+import com.example.soundin.ui.navigation.SoundInNavGraph
 import com.example.soundin.ui.screens.LoginContent
 import com.example.soundin.ui.screens.LoginScreen
 import com.example.soundin.ui.theme.SoundInTheme
@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    soundInNavGraph(navController = navController)
+                   SoundInNavGraph(navController = navController)
                 }
             }
         }
