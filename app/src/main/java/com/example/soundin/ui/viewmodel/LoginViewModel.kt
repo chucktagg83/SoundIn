@@ -31,8 +31,6 @@ class LoginViewModel : ViewModel(){
     }
     fun onRememberSessionChange(value: Boolean){
         _rememberSession.value = value
-        _rememberSession.value = false
-
     }
     fun onValidateAndLogin(): Boolean{
         val isEmailValid = _email.value.contains( other = "@") && _email.value.contains ( other=".")

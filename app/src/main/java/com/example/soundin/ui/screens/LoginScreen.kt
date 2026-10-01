@@ -52,6 +52,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.soundin.R
 import com.example.soundin.ui.viewmodel.LoginViewModel
+import com.example.soundin.ui.viewmodel.UserSessionViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -63,8 +64,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = viewModel(),
+    sessionViewModel: UserSessionViewModel,
     onNavigateToRegister: () -> Unit,
     onLoginSuccess: () -> Unit
+
 ){
     // Snackbar state -- lives here, not inside LoginContent
     val snackbarHostState = remember { SnackbarHostState() }
@@ -106,6 +109,15 @@ fun LoginScreen(
                 val isValid = viewModel.onValidateAndLogin()
                 scope.launch{
                     if (isValid) {
+                        snackbarHostState.showSnackbar(
+                            message = "Welcome to SoundIn",
+                            actionLabel = "Dismiss",
+                            duration = SnackbarDuration.Short
+                        )
+                        sessionViewModel.login(
+                            name = "John Doe",
+                            email = email
+                        )
                         onLoginSuccess()
                     } else{
                         snackbarHostState.showSnackbar(
@@ -229,7 +241,7 @@ fun LoginContent(
             )
             Switch(
                 checked = rememberSession,
-                onCheckedChange = { onRememberSessionChange (it) }
+                onCheckedChange = {onRememberSessionChange (it) }
             )
         }
         // Login Button with validation
